@@ -35,23 +35,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Register as a User</a>
                 </li></div>
-            <div sec:authorize="hasAuthority('ADMIN')">
+            <div sec:authorize="hasAuthority('USER')">
                 <li class="nav-item">
                     <a class="nav-link" href="/addcategory">Add a Message Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addcar">Add a Message</a>
+                    <a class="nav-link" href="/addmessage">Add a Message</a>
                 </li>
             </div>
 
 
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <!--<ul class="nav navbar-nav navbar-right">
             <form th:action="@{/search}" method="post">
                 <input type="text" name="search" placeholder="Enter search term" required>
                 <input type="submit" value="Submit">
             </form>
-        </ul>
+        </ul>-->
     </div>
 </nav>
 <div class="jumbotron jumbotron-fluid jumbotron-style">
@@ -91,16 +91,16 @@
                     </a>
                 </h2>
             </div>
-            <h1 align="center">Category/Car List</h1>
-            <th:block th:each="user: ${users}">
-            <table th:align="center">
+            <h1 align="center">Message List</h1>
 
-                <th:block th:each="category: ${categories}">
-                    <th:block th:each="message: ${messages}">
+            <table th:align="center">
+                <th:block th:each="message: ${messages}">
+<!--                <th:block th:each="category: ${categories}">-->
+
                         <div>
                             <thead>
                             <tr>
-                                <th align="center"><b>Category</b></th>
+<!--                                <th align="center"><b>Category</b></th>-->
                                 <th align="center"><b>Message Title</b></th>
                                 <th align="center"><b>Posted By</b></th>
                                 <th align="center"><b>Post Date</b></th>
@@ -110,9 +110,9 @@
                             <tbody>
                             <tr>
 
-                                <td align="center" th:text="${category.name}"></td>
+<!--                                <td align="center" th:text="${category.name}"></td>-->
                                 <td align="center" th:text="${message.title}"></td>
-                                <td align="center" th:text="${user.username}"></td>
+                                <td align="center" th:text="${message.user}"></td>
                                 <td align="center" th:text="${message.date}"></td>
 
                             </tr>
@@ -129,12 +129,12 @@
                             </tbody>
                         </div>
                     </th:block>
-                </th:block>
+
 
             </table>
 
-            </th:block>
-        </div>
+
+
 
         <div class="col-sm-2">
         </div>

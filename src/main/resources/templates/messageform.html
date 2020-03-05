@@ -35,23 +35,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Register as a User</a>
                 </li></div>
-            <div sec:authorize="hasAuthority('ADMIN')">
+            <div sec:authorize="hasAuthority('USER')">
                 <li class="nav-item">
                     <a class="nav-link" href="/addcategory">Add a Message Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addcar">Add a Message</a>
+                    <a class="nav-link" href="/addmessage">Add a Message</a>
                 </li>
             </div>
 
 
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <!--<ul class="nav navbar-nav navbar-right">
             <form th:action="@{/search}" method="post">
                 <input type="text" name="search" placeholder="Enter search term" required>
                 <input type="submit" value="Submit">
             </form>
-        </ul>
+        </ul>-->
     </div>
 </nav>
 <div class="jumbotron jumbotron-fluid jumbotron-style">
@@ -68,7 +68,7 @@
         </p>
     </div>
 </div>
-<div sec:authorize="hasAuthority('ADMIN')" class="container-fluid">
+<div sec:authorize="hasAuthority('USER')" class="container-fluid">
     <div class="row">
 
         <div class="col-sm-2">
@@ -84,10 +84,10 @@
                 <input type="hidden" th:field="*{id}">
                 Message Title: <input type="text" th:field="*{title}"><br />
                 <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text"></div>
-                Posted By: <input type="text" th:field="${#authentication.name}"><br />>
-                Vehicle Year: <input type="text" th:field="*{date}"><br />
-                Vehicle MSRP: <input type="text" th:field="*{content}"><br />
-                Vehicle Photo: <input type="file" name="file"><br /><br>
+                Posting Date: <input type="text" th:field="*{date}"><br />
+                Message: <input type="text" th:field="*{content}"><br />
+                Message Photo: <input type="file" name="file"><br /><br>
+                <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:text="${#authentication.name}"></div>
                 <select th:field="*{category}">
                     <div th:each="category: ${categories}">
                         <option th:value="${category.id}" th:text="${category.name}">

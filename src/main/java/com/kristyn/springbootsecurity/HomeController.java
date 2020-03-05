@@ -87,14 +87,15 @@ public class HomeController {
         return "redirect:/";
     }*/
 
-    @RequestMapping("/search")
+    /*@RequestMapping("/search")
     public String search(@RequestParam("search") String search, Model model) {
         model.addAttribute("categorySearch", categoryRepository.findByNameIgnoreCase(search));
         model.addAttribute("messageSearch1", messageRepository.findMessageByTitleIgnoreCase(search));
         model.addAttribute("messageSearch2", messageRepository.findMessageByContentIgnoreCase(search));
         model.addAttribute("messageSearch3", messageRepository.findMessageByDateIgnoreCase(search));
+        model.addAttribute("usersearch", userRepository.findByUsername(search));
         return "list";
-    }
+    }*/
 
     @RequestMapping("detail/{id}")
     public String showCategory(@PathVariable("id") long id, Model model) {

@@ -35,23 +35,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Register as a User</a>
                 </li></div>
-            <div sec:authorize="hasAuthority('ADMIN')">
+            <div sec:authorize="hasAuthority('USER')">
                 <li class="nav-item">
                     <a class="nav-link" href="/addcategory">Add a Message Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addcar">Add a Message</a>
+                    <a class="nav-link" href="/addmessage">Add a Message</a>
                 </li>
             </div>
 
 
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <!--<ul class="nav navbar-nav navbar-right">
             <form th:action="@{/search}" method="post">
                 <input type="text" name="search" placeholder="Enter search term" required>
                 <input type="submit" value="Submit">
             </form>
-        </ul>
+        </ul>-->
     </div>
 </nav>
 <div class="jumbotron jumbotron-fluid jumbotron-style">
@@ -93,7 +93,7 @@
                         </a></div></h2>
                 </div>
                 <div th:each="message: ${messageSearch1}">
-                    <p th:inline="text">[[${message.title}]] [[${message.postedBy}]] [[${message.date}]] [[${message.content}]] [[${message.photo}]]</p>
+                    <p th:text="${message.title}"></p>
                     <h2><a th:href="@{/detailc/{id}(id=${message.id})}">
                         <button type="button" class="btn btn-primary">Message Details</button>
                     </a>
@@ -106,7 +106,7 @@
                         </a></div></h2>
                 </div>
                 <div th:each="message: ${messageSearch2}">
-                    <p th:inline="text">[[${message.title}]] [[${message.postedBy}]] [[${message.date}]] [[${message.content}]] [[${message.photo}]]</p>
+                    <p th:text="${message.title}"></p>
                     <h2><a th:href="@{/detailc/{id}(id=${message.id})}">
                         <button type="button" class="btn btn-primary">Message Details</button>
                     </a>
@@ -119,7 +119,7 @@
                         </a></div></h2>
                 </div>
                 <div th:each="message: ${messageSearch3}">
-                    <p th:inline="text">[[${message.title}]] [[${message.postedBy}]] [[${message.date}]] [[${message.content}]] [[${message.photo}]]</p>
+                    <p th:text="${message.title}"></p>
                     <h2><a th:href="@{/detailc/{id}(id=${message.id})}">
                         <button type="button" class="btn btn-primary">Message Details</button>
                     </a>
