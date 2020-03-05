@@ -32,7 +32,7 @@ public class User {
     private String username;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public Set<Car> cars;
+    public Set<Message> messages;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -118,11 +118,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Car> getCars() {
-        return cars;
+    public Set<Message> getMessages() {
+        return messages;
     }
 
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 }

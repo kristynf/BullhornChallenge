@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -26,7 +25,7 @@ public class HomeController {
     CategoryRepository categoryRepository;
 
     @Autowired
-    CarRepository carRepository;
+    MessageRepository messageRepository;
 
     @Autowired
     CloudinaryConfig cloudc;
@@ -34,7 +33,8 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("cars", carRepository.findAll());
+        model.addAttribute("messages", messageRepository.findAll());
+        model.addAttribute("users", userRepository.findAll());
         return "index";
     }
     @GetMapping("/addcategory")
@@ -48,7 +48,7 @@ public class HomeController {
     @PostMapping("/processcategory")
     public String processCategory(@ModelAttribute Category category) {
         categoryRepository.save(category);
-        return "redirect:/addcar";
+        return "redirect:/addmessage";
     }
 
     @PostMapping("/updatecategory")
@@ -58,25 +58,25 @@ public class HomeController {
     }
 
 
-   @GetMapping("/addcar")
-    public String newCar(Model model) {
+   @GetMapping("/addmessage")
+    public String newMessage(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("car", new Car());
-        return "carform";
+        model.addAttribute("message", new Message());
+        return "messageform";
     }
-    @PostMapping("/processcar")
-    public String processCar(@ModelAttribute Car car, @RequestParam("file") MultipartFile file){
+    @PostMapping("/processmessage")
+    public String processMessage(@ModelAttribute Message message, @RequestParam("file") MultipartFile file){
         if(file.isEmpty()){
-            return "redirect:/carform";
+            return "redirect:/messageform";
         }
         try {
             Map uploadResult = cloudc.upload(file.getBytes(),
                     ObjectUtils.asMap("resourcetype", "auto"));
-            car.setPhoto(uploadResult.get("url").toString());
-            carRepository.save(car);
+            message.setPhoto(uploadResult.get("url").toString());
+            messageRepository.save(message);
         } catch (IOException e) {
             e.printStackTrace();
-            return "redirect:/carform";
+            return "redirect:/messageform";
         }
         return "redirect:/";
     }
@@ -90,23 +90,25 @@ public class HomeController {
     @RequestMapping("/search")
     public String search(@RequestParam("search") String search, Model model) {
         model.addAttribute("categorySearch", categoryRepository.findByNameIgnoreCase(search));
-        model.addAttribute("carSearch1", carRepository.findCarByMakeIgnoreCase(search));
-        model.addAttribute("carSearch2", carRepository.findCarByModelIgnoreCase(search));
-        model.addAttribute("carSearch3", carRepository.findCarByYearIgnoreCase(search));
+        model.addAttribute("messageSearch1", messageRepository.findMessageByTitleIgnoreCase(search));
+        model.addAttribute("messageSearch2", messageRepository.findMessageByContentIgnoreCase(search));
+        model.addAttribute("messageSearch3", messageRepository.findMessageByDateIgnoreCase(search));
         return "list";
     }
 
     @RequestMapping("detail/{id}")
     public String showCategory(@PathVariable("id") long id, Model model) {
         model.addAttribute("category", categoryRepository.findById(id).get());
+        model.addAttribute("users", userRepository.findAll());
         return "showcategory";
     }
 
     @RequestMapping("detailc/{id}")
-    public String showCar(@PathVariable("id") long id, Model model) {
-        model.addAttribute("car", carRepository.findById(id).get());
+    public String showMessage(@PathVariable("id") long id, Model model) {
+        model.addAttribute("message", messageRepository.findById(id).get());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "showcar";
+        model.addAttribute("users", userRepository.findAll());
+        return "showmessage";
     }
 
  /*   @RequestMapping("update/{id}")
@@ -116,10 +118,11 @@ public class HomeController {
     }*/
 
     @RequestMapping("updatec/{id}")
-    public String updateCar(@PathVariable("id") long id, Model model) {
-        model.addAttribute("car", carRepository.findById(id).get());
+    public String updateMessage(@PathVariable("id") long id, Model model) {
+        model.addAttribute("message", messageRepository.findById(id).get());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "carform";
+        model.addAttribute("users", userRepository.findAll());
+        return "messageform";
     }
 
     @RequestMapping("delete/{id}")
@@ -129,21 +132,22 @@ public class HomeController {
     }
 
     @RequestMapping("deletec/{id}")
-    public String deleteCar(@PathVariable("id") long id, Model model) {
-        carRepository.deleteById(id);
+    public String deleteMessage(@PathVariable("id") long id, Model model) {
+        messageRepository.deleteById(id);
         return "redirect:/";
     }
 
-    @RequestMapping("/listcars")
-    public String listCars(Model model) {
-        model.addAttribute("cars", carRepository.findAll());
+    @RequestMapping("/listmessages")
+    public String listMessages(Model model) {
+        model.addAttribute("messages", messageRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "showcars";
+        model.addAttribute("users", userRepository.findAll());
+        return "showmessages";
     }
     @RequestMapping("/category/{id}")
     public String displayCat(@PathVariable("id") long id, Model model) {
         model.addAttribute("category", categoryRepository.findById(id).get());
-        model.addAttribute("cars", carRepository.findAll());
+        model.addAttribute("messages", messageRepository.findAll());
         return "listcategory";
     }
 

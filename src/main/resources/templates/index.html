@@ -2,17 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Kristyn's Wonderful World of Vehicles</title>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <title>Enter Category</title>
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{../css/blank.css}">
     <link rel="stylesheet" th:href="@{../css/style.css}">
+    <link rel="stylesheet" th:href="@{../css/blank.css}">
 </head>
 <body>
 <!-- Navbar begin -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">List Vehicles</a>
+    <a class="navbar-brand" href="/">List Messages</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,23 +32,23 @@
                 <a sec:authorize="!isAuthenticated()" class="nav-link text-black" href="/login">Login</a>
             </li>
             <div sec:authorize="!isAuthenticated()">
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register as a User</a>
-            </li></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register as a User</a>
+                </li></div>
             <div sec:authorize="hasAuthority('ADMIN')">
-            <li class="nav-item">
-                <a class="nav-link" href="/addcategory">Add a Vehicle Category</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/addcar">Add a Car</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addcategory">Add a Message Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addcar">Add a Message</a>
+                </li>
             </div>
 
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <form th:action="@{/search}" method="post">
-                <input type="text" name="search" placeholder="Enter search name" required>
+                <input type="text" name="search" placeholder="Enter search term" required>
                 <input type="submit" value="Submit">
             </form>
         </ul>
@@ -54,112 +56,89 @@
 </nav>
 <div class="jumbotron jumbotron-fluid jumbotron-style">
     <div class="container">
-        <h1 class="display-4">Kristyn's Wonderful World of Vehicles</h1>
+        <h1 class="display-4"><b>Kwitter</b></h1>
 
         <hr class="my-4">
 
         <p class="lead">
             <a class="btn btn-primary btn-lg"
-               href="https://www.kbb.com/?psid=19999&siomid=sb8syCRET_dc|114738491693|kelly.%20blue%20book|e|26285ajd51861|pgrid|19636699613|ptaid|aud-387341241246:kwd-133073662853|&segment=&enhancedvs=&ptaid=aud-387341241246%3Akwd-133073662853&gclid=EAIaIQobChMIusXc3tb05wIVmY7ICh22nA5HEAAYASAAEgJzbvD_BwE&pgrid=19636699613&bodystyle="
+               href="https://influencermarketinghub.com/how-to-become-an-influencer/"
                target="_blank"
-               role="button">Price Used Cars</a>
+               role="button">Become an Influencer</a>
         </p>
     </div>
 </div>
 
 <div class="container-fluid">
-       <div class="row">
+    <div class="row">
         <div th:align="center" class="col-sm-2">
             <div th:each="category : ${categories}">
                 <a th:href="@{/category/{id}(id=${category.id})}"><button type="button" class="btn btn-sm btn btn-success" th:text="${category.name}"></button></a><br />
             </div>
         </div>
-
+    </div>
+</div>
         <div  class="col-sm-8">
             <div sec:authorize="hasAuthority('ADMIN')">
-            <h2 th:align="center">
-                <a th:href="@{/addcategory}">
-                    <button type="button" class="btn btn-primary">Add a Vehicle Category</button>
-                </a>
-            </h2>
-            <h2 th:align="center">
-                <a th:href="@{/addcar}">
-                    <button type="button" class="btn btn-info">Add a Vehicle</button>
-                </a>
-            </h2>
-        </div>
+                <h2 th:align="center">
+                    <a th:href="@{/addcategory}">
+                        <button type="button" class="btn btn-primary">Add a Vehicle Category</button>
+                    </a>
+                </h2>
+                <h2 th:align="center">
+                    <a th:href="@{/addcar}">
+                        <button type="button" class="btn btn-info">Add a Vehicle</button>
+                    </a>
+                </h2>
+            </div>
             <h1 align="center">Category/Car List</h1>
+            <th:block th:each="user: ${users}">
             <table th:align="center">
+
                 <th:block th:each="category: ${categories}">
-                    <th:block th:each="car: ${category.cars}">
+                    <th:block th:each="message: ${messages}">
                         <div>
                             <thead>
                             <tr>
-                                <th align="center"><b>Category Name</b></th>
-                                <th align="center"><b>Vehicle Make</b></th>
-                                <th align="center"><b>Vehicle Model</b></th>
-                                <th align="center"><b>Vehicle Year</b></th>
-                                <th align="center"><b>Vehicle MSRP</b></th>
-                                <th align="center"><b>Vehicle Photo</b></th>
+                                <th align="center"><b>Category</b></th>
+                                <th align="center"><b>Message Title</b></th>
+                                <th align="center"><b>Posted By</b></th>
+                                <th align="center"><b>Post Date</b></th>
+
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
 
                                 <td align="center" th:text="${category.name}"></td>
-                                <td align="center" th:text="${car.make}"></td>
-                                <td align="center" th:text="${car.model}"></td>
-                                <td align="center" th:text="${car.year}"></td>
-                                <td align="center" th:text="${car.msrp}"></td>
-                                <div th:if= "${car.photo} == null">
-                                <td align="center" ><img th:src="${car.photo}"></td>
-                                </div>
-                                <div th:unless="${car.photo} == null">
-                                    <td align="center" ><img class="image-resize" th:src="${car.photo}"></td>"
-                                </div>
+                                <td align="center" th:text="${message.title}"></td>
+                                <td align="center" th:text="${user.username}"></td>
+                                <td align="center" th:text="${message.date}"></td>
+
                             </tr>
                             <tr>
 
-                                <td>
-                                    <a th:href="@{/detail/{id}(id=${category.id})}">
-                                        <button type="button" class="btn btn-primary">Category Details</button>
-                                    </a>
-                                    <!--<a th:href="@{/update/{id}(id=${category.id})}">
-                                        <button type="button" class="btn btn-primary">Update Category</button>
-                                    </a>-->
-                                    <div sec:authorize="hasAuthority('ADMIN')">
-                                    <a th:href="@{/delete/{id}(id=${category.id})}">
-                                        <button type="button" class="btn btn-primary">Delete Category</button>
-                                    </a>
-                                    </div>
-                                </td>
-                                <td><a th:href="@{/detailc/{id}(id=${car.id})}">
-                                    <button type="button" class="btn btn-primary">Vehicle Details</button>
+
+                                <td><a th:href="@{/detailc/{id}(id=${message.id})}">
+                                    <button type="button" class="btn btn-primary">Message Details</button>
                                 </a>
-                                    <div sec:authorize="hasAuthority('ADMIN')">
-                                    <a th:href="@{/updatec/{id}(id=${car.id})}">
-                                        <button type="button" class="btn btn-primary">Update Vehicle</button>
-                                    </a>
-                                    <a th:href="@{/deletec/{id}(id=${car.id})}">
-                                        <button type="button" class="btn btn-primary">Delete Vehicle</button>
-                                    </a>
-                                    </div>
+
                                 </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+
                             </tr>
                             </tbody>
                         </div>
                     </th:block>
                 </th:block>
+
             </table>
+
+            </th:block>
         </div>
 
         <div class="col-sm-2">
         </div>
-    </div>
+
 </div>
 <footer class="container-fluid text-center">
     <br>

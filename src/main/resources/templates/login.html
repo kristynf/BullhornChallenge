@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <title>Please Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -13,7 +15,7 @@
 <body>
 <!-- Navbar begin -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">List Vehicles</a>
+    <a class="navbar-brand" href="/">List Messages</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -36,10 +38,10 @@
                 </li></div>
             <div sec:authorize="hasAuthority('ADMIN')">
                 <li class="nav-item">
-                    <a class="nav-link" href="/addcategory">Add a Vehicle Category</a>
+                    <a class="nav-link" href="/addcategory">Add a Message Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addcar">Add a Car</a>
+                    <a class="nav-link" href="/addcar">Add a Message</a>
                 </li>
             </div>
 
@@ -47,7 +49,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <form th:action="@{/search}" method="post">
-                <input type="text" name="search" placeholder="Enter search name" required>
+                <input type="text" name="search" placeholder="Enter search term" required>
                 <input type="submit" value="Submit">
             </form>
         </ul>
@@ -55,15 +57,15 @@
 </nav>
 <div class="jumbotron jumbotron-fluid jumbotron-style">
     <div class="container">
-        <h1 class="display-4">Kristyn's Wonderful World of Vehicles</h1>
+        <h1 class="display-4">Kwitter</h1>
 
         <hr class="my-4">
 
         <p class="lead">
             <a class="btn btn-primary btn-lg"
-               href="https://www.kbb.com/?psid=19999&siomid=sb8syCRET_dc|114738491693|kelly.%20blue%20book|e|26285ajd51861|pgrid|19636699613|ptaid|aud-387341241246:kwd-133073662853|&segment=&enhancedvs=&ptaid=aud-387341241246%3Akwd-133073662853&gclid=EAIaIQobChMIusXc3tb05wIVmY7ICh22nA5HEAAYASAAEgJzbvD_BwE&pgrid=19636699613&bodystyle="
+               href="https://influencermarketinghub.com/how-to-become-an-influencer/"
                target="_blank"
-               role="button">Price Used Cars</a>
+               role="button">Become an Influencer</a>
         </p>
     </div>
 </div>

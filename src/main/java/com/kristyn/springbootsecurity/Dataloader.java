@@ -23,7 +23,7 @@ public class Dataloader implements CommandLineRunner {
     CategoryRepository categoryRepository;
 
     @Autowired
-    CarRepository carRepository;
+    MessageRepository messageRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -35,86 +35,89 @@ public class Dataloader implements CommandLineRunner {
        Role adminRole = roleRepository.findByRole("ADMIN");
        Role userRole = roleRepository.findByRole("USER");
 
-       User user = new User("jim@jim.com", "password", "jim", "Jimmerson", true, "jim");
+       User user = new User("kristyn@kristyn.com", "password", "Kristyn", "Ferber", true, "kristyn");
        user.setRoles(Arrays.asList(userRole));
        userRepository.save(user);
 
-        user = new User("admin@admin.com", "password", "Admin", "User", true, "admin");
+       User user1 = new User("sara@sara.com", "password", "Sara", "Smith", true, "sara");
+       user.setRoles(Arrays.asList(userRole));
+       userRepository.save(user1);
+
+        User user0 = new User("admin@admin.com", "password", "Admin", "User", true, "admin");
         user.setRoles(Arrays.asList(adminRole));
-        userRepository.save(user);
+        userRepository.save(user0);
 
         Category category = new Category();
-        category.setName("Used Car");
+        category.setName("Life Events");
 
-        Car car = new Car();
-        car.setMake("Subaru");
-        car.setModel("Forrester");
-        car.setYear("2010");
-        car.setMsrp("$10000");
-        car.setPhoto("https://res.cloudinary.com/kristynf/image/upload/v1582923471/subaruforester_rwn0g6.jpg");
-        car.setUser(user);
+        Message message = new Message();
+        message.setTitle("New Job");
+        message.setContent("I got a new job");
+        message.setDate("03/01/2020 1300");
+        message.setPhoto("https://res.cloudinary.com/kristynf/image/upload/v1583422792/find-new-job_vouxat.jpg");
+        message.setUser(user);
 
 
-        Car car1 = new Car();
-        car1.setMake("Chevy");
-        car1.setModel("Impala");
-        car1.setYear("2003");
-        car1.setMsrp("$8000");
-        car1.setUser(user);
+        Message message1 = new Message();
+        message1.setTitle("New Car");
+        message1.setContent("I got a new car");
+        message1.setDate("03/01/2020 0851");
+        message1.setPhoto("https://res.cloudinary.com/kristynf/image/upload/v1582923471/subaruforester_rwn0g6.jpg");
+        message1.setUser(user1);
 
-        Car car2 = new Car();
-        car2.setMake("Ford");
-        car2.setModel("Focus");
-        car2.setYear("2009");
-        car2.setMsrp("$5000");
-        car2.setUser(user);
+        Message message2 = new Message();
+        message2.setTitle("New Dog");
+        message2.setContent("I got a new dog");
+        message2.setDate("03/02/2020 0952");
+        message2.setPhoto("https://res.cloudinary.com/kristynf/image/upload/v1582130633/IMG_20200215_211646_mpruls.jpg");
+        message2.setUser(user);
 
-        Set<Car> cars = new HashSet<>();
-        cars.add(car);
-        cars.add(car1);
-        cars.add(car2);
-        category.setCars(cars);
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        messages.add(message1);
+        messages.add(message2);
+        category.setMessages(messages);
         categoryRepository.save(category);
 
 
-        car.setCategory(category);
-        carRepository.save(car);
+        message.setCategory(category);
+        messageRepository.save(message);
 
 
         Category category1 = new Category();
-        category1.setName("New Car");
+        category1.setName("General updates");
 
-        Car car3 = new Car();
-        car3.setMake("Ford");
-        car3.setModel("Fiesta");
-        car3.setYear("2020");
-        car3.setMsrp("$10000");
-        car3.setUser(user);
+        Message message3 = new Message();
+        message3.setTitle("Programming Life");
+        message3.setContent("Programming is hard because people are involved");
+        message3.setDate("03/03/2020 1002");
+        message3.setPhoto("https://res.cloudinary.com/kristynf/image/upload/v1582130633/IMG_20200113_225103_nly5qn.jpg");
+        message3.setUser(user1);
 
-        Car car4 = new Car();
-        car4.setMake("Subaru");
-        car4.setModel("Impreza");
-        car4.setYear("2020");
-        car4.setMsrp("25000");
-        car4.setUser(user);
+        Message message4 = new Message();
+        message4.setTitle("Life");
+        message4.setContent("Life is good");
+        message4.setDate("03/04/2020 0941");
+        message4.setPhoto("https://res.cloudinary.com/kristynf/image/upload/v1583422786/lifegood_mjnql5.jpg");
+        message4.setUser(user);
 
-        cars = new HashSet<>();
-        cars.add(car3);
-        cars.add(car4);
+        messages = new HashSet<>();
+        messages.add(message3);
+        messages.add(message4);
 
-        category.setCars(cars);
+        category.setMessages(messages);
         categoryRepository.save(category1);
 
-        car.setCategory(category);
-        car1.setCategory(category);
-        car2.setCategory(category);
-        car3.setCategory(category1);
-        car4.setCategory(category1);
-        carRepository.save(car);
-        carRepository.save(car1);
-        carRepository.save(car2);
-        carRepository.save(car3);
-        carRepository.save(car4);
+        message.setCategory(category);
+        message1.setCategory(category);
+        message2.setCategory(category);
+        message3.setCategory(category1);
+        message4.setCategory(category1);
+        messageRepository.save(message);
+        messageRepository.save(message1);
+        messageRepository.save(message2);
+        messageRepository.save(message3);
+        messageRepository.save(message4);
 
     }
 }

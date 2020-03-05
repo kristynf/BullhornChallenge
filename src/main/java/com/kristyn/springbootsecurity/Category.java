@@ -10,15 +10,8 @@ public class Category {
     private long id;
     private String name;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Car> cars;
+    public Set<Message> messages;
 
-    public Category() {
-    }
-
-    public Category(String name, Set<Car> cars) {
-        this.name = name;
-        this.cars = cars;
-    }
 
     public long getId() {
         return id;
@@ -36,11 +29,11 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Car> getCars() {
-        return cars;
+    public Set<Message> getMessages() {
+        return messages;
     }
 
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 }
