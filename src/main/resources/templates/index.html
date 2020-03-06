@@ -91,13 +91,14 @@
                     </a>
                 </h2>
             </div>
+        </div>
             <h1 align="center">Message List</h1>
 
             <table th:align="center">
-                <th:block th:each="message: ${messages}">
+
 <!--                <th:block th:each="category: ${categories}">-->
 
-                        <div>
+                        <div th:each="m: ${messages}">
                             <thead>
                             <tr>
 <!--                                <th align="center"><b>Category</b></th>-->
@@ -111,15 +112,15 @@
                             <tr>
 
 <!--                                <td align="center" th:text="${category.name}"></td>-->
-                                <td align="center" th:text="${message.title}"></td>
-                                <td align="center" th:text="${message.user}"></td>
-                                <td align="center" th:text="${message.date}"></td>
+                                <td align="center" th:text="${m.title}"></td>
+                                <td align="center" th:text="${m.getUser().getUsername()}"></td>
+                                <td align="center" th:text="${m.getDate()}"></td>
 
                             </tr>
                             <tr>
 
 
-                                <td><a th:href="@{/detailc/{id}(id=${message.id})}">
+                                <td><a th:href="@{/detailc/{id}(id=${m.id})}">
                                     <button type="button" class="btn btn-primary">Message Details</button>
                                 </a>
 
@@ -128,12 +129,13 @@
                             </tr>
                             </tbody>
                         </div>
-                    </th:block>
+
+
 
 
             </table>
 
-
+        </div>
 
 
         <div class="col-sm-2">

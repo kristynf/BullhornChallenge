@@ -33,7 +33,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("messages", messageRepository.findAll());
+        model.addAttribute("messages",messageRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
         return "index";
     }
