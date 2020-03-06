@@ -79,15 +79,15 @@
     </div>
 </div>
         <div  class="col-sm-8">
-            <div sec:authorize="hasAuthority('ADMIN')">
+            <div sec:authorize="hasAuthority('USER')">
                 <h2 th:align="center">
                     <a th:href="@{/addcategory}">
-                        <button type="button" class="btn btn-primary">Add a Vehicle Category</button>
+                        <button type="button" class="btn btn-primary">Add a Message Category</button>
                     </a>
                 </h2>
                 <h2 th:align="center">
-                    <a th:href="@{/addcar}">
-                        <button type="button" class="btn btn-info">Add a Vehicle</button>
+                    <a th:href="@{/addmessage}">
+                        <button type="button" class="btn btn-info">Add a Message</button>
                     </a>
                 </h2>
             </div>
